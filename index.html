@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TodoBest</title>
+
+  <!-- CDN Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- OWN CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+
+<body>
+  <nav class="navbar shadow-sm d-flex flex-column align-items-center">
+    <h1 class="navbar-brand">TodoBest</h1>
+    <form class="col-12 col-md-10 formAddTodo d-md-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-5 form-group mt-3 mr-3">
+        <label for="titleTodo" class="d-none">Title todo</label>
+        <input type="text" class="form-control" id="titleTodo" name="title" placeholder="Title">
+      </div>
+      <div class="col-12 col-md-5 form-group mt-3 mr-3">
+        <label for="descriptionTodo" class="d-none">Title todo</label>
+        <input type="text" class="form-control" id="descriptionTodo" name="description" placeholder="Description">
+      </div>
+      <div class="col-12 col-md-2">
+        <button type="submit" class="w-100 btn btn-primary rounded px-2 addBtn">
+          <p class="font-weight-bold">ADD</p>
+          <!-- <i class="fa fa-plus d-none d-md-inline" aria-hidden="true"></i> -->
+        </button>
+      </div>
+    </form>
+  </nav>
+  <!-- Error message -->
+  <div class="boxError" role="alert">
+    <p class="boxError__text text-center"></p>
+  </div>
+
+  <main class="container mt-5">
+      <div class="row my-3 listCards">
+        
+        <!-- <div class="col-12 col-md-4 my-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Title Todo</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, atque!</p>
+              <div class="testdel d-flex justify-content-end">
+                <a href="#" class="btnDelCard card-link">
+                </a>
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+  </main>
+
+  
+
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

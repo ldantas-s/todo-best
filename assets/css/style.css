@@ -1,0 +1,25 @@
+.addBtn {
+  width: 45px;
+  height: 35px;
+  font-weight: normal;
+}
+
+.testdel {
+  position: relative;
+
+}
+.btnDelCard {
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 10;
+}
+.btnDelCard + i {
+  position: absolute;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  color: orangered;
+}
