@@ -33,17 +33,19 @@ const card = {
       divContentActions = document.createElement('div'),
       h5Title = document.createElement('h5'),
       pDescript = document.createElement('p'),
-      aDelete = document.createElement('a'),
-      trashIcon = document.createElement('i');
-    
-    trashIcon.setAttribute('class', 'fa fa-trash-o');
-    trashIcon.setAttribute('aria-hidden', 'true');
+      trashIcon = document.createElement('i'),
+      editIcon = document.createElement('i');
 
-    aDelete.setAttribute('data-id', doc.id);
-    aDelete.setAttribute('class', 'btnDelCard card-link');
+    editIcon.setAttribute('class', 'text-primary fa fa-pencil-square');
+    editIcon.setAttribute('aria-hidden', 'true');
+    editIcon.setAttribute('data-id', doc.id);
+    
+    trashIcon.setAttribute('class', 'text-danger mx-2 fa fa-trash-o');
+    trashIcon.setAttribute('aria-hidden', 'true');
+    trashIcon.setAttribute('data-id', doc.id);
 
     divContentActions.setAttribute('class', 'testdel d-flex justify-content-end')
-    divContentActions.append(aDelete, trashIcon);
+    divContentActions.append(trashIcon, editIcon);
 
     pDescript.setAttribute('class', 'card-text');
     pDescript.textContent = doc.data().description;
@@ -57,7 +59,6 @@ const card = {
     divCard.setAttribute('class', 'card shadow');
     divCard.appendChild(divCardBody);
 
-    // divColumn.setAttribute('data-id', `${Math.floor(Math.random() * 10 + (Math.floor(Math.random() * 10)))}`);
     divColumn.setAttribute('data-id', doc.id);
     divColumn.setAttribute('class', 'col-12 col-md-4 my-3');
     divColumn.appendChild(divCard);
@@ -66,15 +67,20 @@ const card = {
 
     // console.log(doc)
 
-    aDelete.addEventListener('click', this.remove);
+    trashIcon.addEventListener('click', this.remove);
+    editIcon.addEventListener('click', () => { this.update(Event, h5Title, pDescript) });
 
-    return divColumn;
+    // return divColumn;
   },
 
   remove(event) {
     let id = event.target.dataset.id;
 
     todoBest.doc(id).delete();
+  },
+  update(event, title, descrip) {
+    el.formAddTodo.title.value = title.textContent;
+    el.formAddTodo.description.value = descrip.textContent;
   }
 }
 
@@ -118,14 +124,19 @@ el.formAddTodo.addEventListener('submit', function(e) {
 todoBest.onSnapshot(function(snapshot) {
   snapshot.docChanges().forEach(function(change) {
     switch(change.type) {
+      // added
       case 'added':
         card.display(change.doc);
         break;
-      // 'modified'
+      // 'removed'
       case 'removed':
         let todo = el.listCards.querySelector(`div[data-id='${change.doc.id}']`);
         el.listCards.removeChild(todo);
-      // 'removed'
+        break;
+      // 'modified'
+      // case 'modified':
+      //   card.display(change.doc);
+      //   break;
     }
   });
 });

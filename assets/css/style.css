@@ -4,22 +4,14 @@
   font-weight: normal;
 }
 
-.testdel {
+/* .testdel {
   position: relative;
+  border: 1px solid red;
+} */
 
-}
-.btnDelCard {
-  padding: 0;
-  width: 25px;
-  height: 25px;
+i {
   cursor: pointer;
-  z-index: 10;
 }
-.btnDelCard + i {
-  position: absolute;
-  z-index: 1;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
-  color: orangered;
+.fa {
+  font-size: 18px;
 }
