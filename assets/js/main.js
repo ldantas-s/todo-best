@@ -51,7 +51,9 @@ const card = {
     pDescript.textContent = doc.data().description;
 
     h5Title.setAttribute('class', 'card-title');
+    h5Title.setAttribute('data-id', doc.id);
     h5Title.textContent = doc.data().title;
+
 
     divCardBody.setAttribute('class', 'card-body');
     divCardBody.append(h5Title, pDescript, divContentActions);
@@ -81,24 +83,38 @@ const card = {
   update(event, title, descrip) {
     el.formAddTodo.title.value = title.textContent;
     el.formAddTodo.description.value = descrip.textContent;
+    el.formAddTodo.title.setAttribute('data-id', title.getAttribute('data-id'));
+    el.formAddTodo.title.focus();
   }
 }
 
-// card.display('title todo 2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, atq');
-// card.display('title todo 2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, atq');
 
 // post todobest
 el.formAddTodo.addEventListener('submit', function(e) {
   e.preventDefault()
   let title = this.title.value;
   let description = this.description.value;
-  
-  
+    
   if (!title) {
     this.title.classList.add('border', 'border-danger');
     el.boxError.parentElement.classList.add('alert', 'alert-warning');
     el.boxError.textContent = 'Por favor, preencha os campos obrigatórios';
     return;
+  }
+
+  if (this.title.getAttribute('data-id') !== '') {
+    todoBest.doc(this.title.getAttribute('data-id')).update({
+      title,
+      description,
+      createdAt: timestamp()
+    });
+    this.title.setAttribute('data-id', '');
+  } else {
+    todoBest.add({
+      title,
+      description,
+      createdAt: timestamp()
+    });
   }
 
   this.title.classList.remove('border', 'border-danger');
@@ -107,16 +123,8 @@ el.formAddTodo.addEventListener('submit', function(e) {
   el.boxError.parentElement.classList.add('alert', 'alert-success');
   el.boxError.textContent = 'To do salva com sucesso!'
 
-  todoBest.add({
-    title,
-    description,
-    createdAt: timestamp()
-  })
-  .then((docRef) => console.log('Document written with ID: ', docRef.id))
-  .catch((error) => console.error('Error adding document: ', error));
-
-
   this.reset();
+  return;
 });
 
 
@@ -133,10 +141,16 @@ todoBest.onSnapshot(function(snapshot) {
         let todo = el.listCards.querySelector(`div[data-id='${change.doc.id}']`);
         el.listCards.removeChild(todo);
         break;
-      // 'modified'
-      // case 'modified':
-      //   card.display(change.doc);
-      //   break;
+      // modified
+      case 'modified':
+        const cardId = document.querySelector(`div[data-id=${change.doc.id}]`)
+
+        const title = cardId.querySelector('div.card h5');
+        const description = cardId.querySelector('div.card p');
+
+        title.textContent = change.doc.data().title;
+        description.textContent = change.doc.data().description;
+        break;
     }
   });
 });
